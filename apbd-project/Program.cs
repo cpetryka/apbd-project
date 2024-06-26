@@ -1,4 +1,6 @@
 using apbd_project.Data;
+using apbd_project.Service;
+using apbd_project.Service.Impl;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IClientService, ClientService>();
 
 builder.Services.AddDbContext<ApplicationContext>(
     options => options.UseSqlServer("Name=ConnectionStrings:Default"));
