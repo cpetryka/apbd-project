@@ -1,4 +1,5 @@
 using apbd_project.Data;
+using apbd_project.Middleware;
 using apbd_project.Service;
 using apbd_project.Service.Impl;
 using Microsoft.EntityFrameworkCore;
@@ -29,5 +30,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+// Register custom exception handler middleware
+app.UseMiddleware<CustomExceptionHandler>();
 
 app.Run();
