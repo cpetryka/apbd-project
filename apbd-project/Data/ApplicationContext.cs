@@ -8,6 +8,8 @@ public class ApplicationContext : DbContext
     public DbSet<Client> Clients { get; set; } = null!;
     public DbSet<IndividualClient> IndividualClients { get; set; } = null!;
     public DbSet<BusinessClient> BusinessClients { get; set; } = null!;
+    public DbSet<SoftwareProduct> SoftwareProducts { get; set; } = null!;
+    public DbSet<Discount> Discounts { get; set; } = null!;
 
     public ApplicationContext(DbContextOptions options) : base(options) { }
 
@@ -49,6 +51,39 @@ public class ApplicationContext : DbContext
                 ClientId = 2,
                 CompanyName = "Firma XYZ",
                 KrsNumber = "9876543210"
+            }
+        );
+
+        modelBuilder.Entity<SoftwareProduct>().HasData(
+            new SoftwareProduct
+            {
+                Id = 1,
+                Name = "Software product 1",
+                Description = "Some description",
+                Version = "1.0",
+                Category = "Finance",
+                Type = "Subscription"
+            },
+            new SoftwareProduct
+            {
+                Id = 2,
+                Name = "Product 2",
+                Description = "Description 2",
+                Version = "2.0",
+                Category = "Education",
+                Type = "One-time purchase"
+            }
+        );
+
+        modelBuilder.Entity<Discount>().HasData(
+            new Discount
+            {
+                Id = 1,
+                Name = "Some discount",
+                Offer = "Some offer",
+                Amount = 15,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(7)
             }
         );
 
