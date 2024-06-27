@@ -16,8 +16,7 @@ public class Contract
     public decimal Price { get; set; } // Includes all discounts
     [Required]
     public DateTime StartDate { get; set; }
-    [Required]
-    public DateTime SignedDate { get; set; } // If null, it means that the contract is not signed yet
+    public DateTime? SignedDate { get; set; } // If null, it means that the contract is not signed yet
 
     [ForeignKey(nameof(ClientId))]
     public Client Client { get; set; } = null!;
