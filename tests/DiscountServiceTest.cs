@@ -171,4 +171,43 @@ public class DiscountServiceTest
         // Act & Assert
         Assert.ThrowsExceptionAsync<DbUpdateException>(() => _discountService.AddDiscount(addDiscountDto));
     }
+
+    [TestMethod]
+    public void FindCurrentlyBestDiscount_WhenDiscountsExist_ReturnsBestDiscount()
+    {
+        // Arrange
+        var discount1 = new Discount
+        {
+            Id = 1,
+            Name = "Discount 1",
+            Offer = "Offer 1",
+            Amount = 10,
+            StartDate = DateTime.Now,
+            EndDate = DateTime.Now.AddDays(1)
+        };
+        var discount2 = new Discount
+        {
+            Id = 2,
+            Name = "Discount 2",
+            Offer = "Offer 2",
+            Amount = 20,
+            StartDate = DateTime.Now,
+            EndDate = DateTime.Now.AddDays(1)
+        };
+        _context.Discounts.Add(discount1);
+        _context.Discounts.Add(discount2);
+        _context.SaveChanges();
+
+        // Act
+        var result = _discountService.FindCurrentlyBestDiscount().Result;
+
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.AreEqual(discount2.Id, result.Id);
+        Assert.AreEqual(discount2.Name, result.Name);
+        Assert.AreEqual(discount2.Offer, result.Offer);
+        Assert.AreEqual(discount2.Amount, result.Amount);
+        Assert.AreEqual(discount2.StartDate, result.StartDate);
+        Assert.AreEqual(discount2.EndDate, result.EndDate);
+    }
 }

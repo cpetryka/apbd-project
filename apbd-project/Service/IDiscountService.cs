@@ -8,4 +8,5 @@ public interface IDiscountService
     Task<GetDiscountDto?> GetDiscountById(int id);
     Task<IEnumerable<GetDiscountDto>> GetAllDiscounts();
     Task AddDiscount(AddDiscountDto addDiscountDto);
+    Task<GetDiscountDto?> FindCurrentlyBestDiscount();
 }

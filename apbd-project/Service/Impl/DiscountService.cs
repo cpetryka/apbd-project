@@ -61,4 +61,24 @@ public class DiscountService : IDiscountService
         await _context.Discounts.AddAsync(discount);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<GetDiscountDto?> FindCurrentlyBestDiscount()
+    {
+        var now = DateTime.Now;
+
+        return await _context
+            .Discounts
+            .Where(d => d.StartDate <= now && d.EndDate >= now)
+            .OrderByDescending(d => d.Amount)
+            .Select(d => new GetDiscountDto
+            {
+                Id = d.Id,
+                Name = d.Name,
+                Offer = d.Offer,
+                Amount = d.Amount,
+                StartDate = d.StartDate,
+                EndDate = d.EndDate
+            })
+            .FirstOrDefaultAsync();
+    }
 }
