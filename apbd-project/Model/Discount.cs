@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace apbd_project.Model;
 
@@ -6,6 +7,7 @@ namespace apbd_project.Model;
 // -> the activity of the software contract
 // -> at the time of subscription purchase
 
+[Table("discounts")]
 public class Discount
 {
     [Key]

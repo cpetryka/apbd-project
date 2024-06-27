@@ -1,7 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace apbd_project.Model;
 
+[Table("software_products")]
 public class SoftwareProduct
 {
     [Key]
