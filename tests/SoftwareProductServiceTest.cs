@@ -18,7 +18,7 @@ public class SoftwareProductServiceTest
     public void Setup()
     {
         _options = new DbContextOptionsBuilder<ApplicationContext>()
-            .UseInMemoryDatabase(databaseName: "ClientServiceTestDb")
+            .UseInMemoryDatabase(databaseName: "SoftwareProductServiceTestDb")
             .Options;
         _context = new ApplicationContext(_options);
         _softwareProductService = new SoftwareProductService(_context);
