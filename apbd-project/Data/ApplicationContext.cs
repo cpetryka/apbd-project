@@ -89,6 +89,9 @@ public class ApplicationContext : DbContext
             }
         );
 
+        // Configure the precision and scale for the Price property
+        modelBuilder.Entity<Contract>().Property(c => c.Price).HasColumnType("decimal(18, 2)");
+
         modelBuilder.Entity<Contract>().HasData(
             new Contract
             {
@@ -110,31 +113,5 @@ public class ApplicationContext : DbContext
                 SupportEndDate = DateTime.Now.AddYears(1)
             }
         );
-
-        /*modelBuilder.Entity<Client>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-            entity.Property(e => e.Address).IsRequired();
-            entity.Property(e => e.Email).IsRequired();
-            entity.Property(e => e.PhoneNumber).IsRequired();
-        });
-
-        modelBuilder.Entity<IndividualClient>(entity =>
-        {
-            entity.HasKey(e => e.ClientId);
-            entity.Property(e => e.Name).IsRequired();
-            entity.Property(e => e.Surname).IsRequired();
-            entity.Property(e => e.Pesel).IsRequired().HasMaxLength(11);
-            entity.Property(e => e.IsActive).IsRequired();
-            entity.HasOne(e => e.Client).WithOne().HasForeignKey<IndividualClient>(e => e.ClientId);
-        });
-
-        modelBuilder.Entity<BusinessClient>(entity =>
-        {
-            entity.HasKey(e => e.ClientId);
-            entity.Property(e => e.CompanyName).IsRequired();
-            entity.Property(e => e.KrsNumber).IsRequired().HasMaxLength(10);
-            entity.HasOne(e => e.Client).WithOne().HasForeignKey<BusinessClient>(e => e.ClientId);
-        });*/
     }
 }
