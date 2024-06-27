@@ -1,6 +1,7 @@
 using apbd_project.Data;
 using apbd_project.Model;
 using apbd_project.Model.Dto;
+using Microsoft.EntityFrameworkCore;
 
 namespace apbd_project.Service.Impl;
 
@@ -13,6 +14,11 @@ public class ContractService : IContractService
     {
         _context = context;
         _discountService = discountService;
+    }
+
+    public async Task<bool> DoesContractExist(int id)
+    {
+        return await _context.Contracts.AnyAsync(c => c.Id == id);
     }
 
     public Task<bool> IsContractDurationValid(DateTime startDate, DateTime endDate)
@@ -50,8 +56,7 @@ public class ContractService : IContractService
             ClientId = addContractDto.ClientId,
             SoftwareProductId = addContractDto.SoftwareProductId,
             Price = totalPrice,
-            StartDate = addContractDto.StartDate,
-            SignedDate = DateTime.Now
+            StartDate = addContractDto.StartDate
         };
 
         _context.Contracts.Add(contract);
