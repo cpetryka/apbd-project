@@ -15,6 +15,7 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IDiscountService, DiscountService>();
 builder.Services.AddScoped<ISoftwareProductService, SoftwareProductService>();
 builder.Services.AddScoped<IContractService, ContractService>();
+builder.Services.AddScoped<IPaymentsService, PaymentService>();
 builder.Services.AddScoped<ICurrencyService, CurrencyService>();
 
 builder.Services.AddDbContext<ApplicationContext>(
