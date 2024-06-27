@@ -10,6 +10,8 @@ public class ApplicationContext : DbContext
     public DbSet<BusinessClient> BusinessClients { get; set; } = null!;
     public DbSet<SoftwareProduct> SoftwareProducts { get; set; } = null!;
     public DbSet<Discount> Discounts { get; set; } = null!;
+    public DbSet<Contract> Contracts { get; set; } = null!;
+    public DbSet<OneTimePurchase> OneTimePurchases { get; set; } = null!;
 
     public ApplicationContext(DbContextOptions options) : base(options) { }
 
@@ -84,6 +86,28 @@ public class ApplicationContext : DbContext
                 Amount = 15,
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now.AddDays(7)
+            }
+        );
+
+        modelBuilder.Entity<Contract>().HasData(
+            new Contract
+            {
+                Id = 1,
+                ClientId = 1,
+                SoftwareProductId = 1,
+                Price = 10_000,
+                StartDate = DateTime.Now,
+                SignedDate = DateTime.Now
+            }
+        );
+
+        modelBuilder.Entity<OneTimePurchase>().HasData(
+            new OneTimePurchase
+            {
+                ContractId = 1,
+                EndDate = DateTime.Now.AddDays(14),
+                Version = "1.0",
+                SupportEndDate = DateTime.Now.AddYears(1)
             }
         );
 
