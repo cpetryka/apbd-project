@@ -12,6 +12,7 @@ public class ApplicationContext : DbContext
     public DbSet<Discount> Discounts { get; set; } = null!;
     public DbSet<Contract> Contracts { get; set; } = null!;
     public DbSet<OneTimePurchase> OneTimePurchases { get; set; } = null!;
+    public DbSet<Payment> Payments { get; set; } = null!;
 
     public ApplicationContext(DbContextOptions options) : base(options) { }
 
@@ -111,6 +112,19 @@ public class ApplicationContext : DbContext
                 EndDate = DateTime.Now.AddDays(14),
                 Version = "1.0",
                 SupportEndDate = DateTime.Now.AddYears(1)
+            }
+        );
+
+        // Configure the precision and scale for the Amount property
+        modelBuilder.Entity<Payment>().Property(p => p.Amount).HasColumnType("decimal(18, 2)");
+
+        modelBuilder.Entity<Payment>().HasData(
+            new Payment
+            {
+                Id = 1,
+                ContractId = 1,
+                Amount = 10_000,
+                PaymentDate = DateTime.Now
             }
         );
     }
