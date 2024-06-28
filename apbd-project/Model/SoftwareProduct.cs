@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace apbd_project.Model;
 
-[Table("software_products")]
+[Table("softwareProducts")]
 public class SoftwareProduct
 {
     [Key]

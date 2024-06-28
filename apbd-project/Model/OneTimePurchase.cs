@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace apbd_project.Model;
 
+[Table("oneTimePurchase")]
 public class OneTimePurchase
 {
     [Key]
