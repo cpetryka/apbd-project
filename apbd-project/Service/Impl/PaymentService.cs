@@ -112,43 +112,6 @@ public class PaymentService : IPaymentsService
 
     public async Task<decimal?> CalculatePredictableProfit(string currencyCode, int? softwareProductId, int months)
     {
-        /*var paymentsQueryable = _context
-            .Payments
-            .Include(p => p.Contract)
-            .Include(p => p.Contract.OneTimePurchase)
-            .AsQueryable();
-
-        if (softwareProductId.HasValue)
-        {
-            paymentsQueryable = paymentsQueryable.Where(p => p.Contract.SoftwareProductId == softwareProductId);
-        }
-
-        var paymentsList = await paymentsQueryable.ToListAsync();
-
-        decimal totalProfit = 0;
-        var currentExchangeRate = await _currencyService.GetCurrencyExchangeRate(currencyCode);
-
-        foreach (var payment in paymentsList)
-        {
-            if (payment.Contract.SignedDate.HasValue/* || payment.Contract.OneTimePurchase.EndDate <= DateTime.Now.AddMonths(months)#1#)
-            {
-                totalProfit += payment.Amount;
-            }
-        }
-
-        var notSignedContracts = await _context
-            .Contracts
-            .Include(c => c.OneTimePurchase)
-            .Where(c => c.SignedDate == null && c.OneTimePurchase.EndDate <= DateTime.Now.AddMonths(months))
-            .ToListAsync();
-
-        foreach (var contract in notSignedContracts)
-        {
-            totalProfit += contract.Price;
-        }
-
-        return totalProfit / currentExchangeRate;*/
-
         decimal totalProfit = CalculateProfit(currencyCode, softwareProductId).Result ?? 0;
         var currentExchangeRate = await _currencyService.GetCurrencyExchangeRate(currencyCode);
 

@@ -15,7 +15,8 @@ public class Client
     [Required]
     public string PhoneNumber { get; set; } = null!;
 
-    // TODO: should it be a collection or a single object?
-    public IndividualClient IndividualClient { get; set; } = null!;
-    public BusinessClient BusinessClient { get; set; } = null!;
+    public IndividualClient? IndividualClient { get; set; } = null!;
+    public BusinessClient? BusinessClient { get; set; } = null!;
+
+    public ICollection<Contract> Contracts { get; set; } = new List<Contract>();
 }

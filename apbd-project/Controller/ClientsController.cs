@@ -7,7 +7,7 @@ namespace apbd_project.Controller;
 
 [ApiController]
 [Route("api/clients")]
-[Authorize(Policy = "admin")]
+[Authorize(Policy = "all")]
 public class ClientsController : ControllerBase
 {
     private readonly IClientService _clientService;
@@ -50,6 +50,7 @@ public class ClientsController : ControllerBase
     }
 
     [HttpPatch("individual/{id}")]
+    [Authorize(Policy = "admin")]
     public async Task<IActionResult> UpdateIndividualClient(int id, UpdateIndividualClientDto updateIndividualClientDto)
     {
         await _clientService.UpdateIndividualClient(id, updateIndividualClientDto);
@@ -57,6 +58,7 @@ public class ClientsController : ControllerBase
     }
 
     [HttpPatch("business/{id}")]
+    [Authorize(Policy = "admin")]
     public async Task<IActionResult> UpdateBusinessClient(int id, UpdateBusinessClientDto updateBusinessClientDto)
     {
         await _clientService.UpdateBusinessClient(id, updateBusinessClientDto);
@@ -64,6 +66,7 @@ public class ClientsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Policy = "admin")]
     public async Task<IActionResult> DeleteClient(int id)
     {
         await _clientService.DeleteClient(id);

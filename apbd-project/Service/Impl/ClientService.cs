@@ -164,7 +164,9 @@ public class ClientService : IClientService
 
     public async Task DeleteClient(int id)
     {
-        var client = await _context.Clients.FindAsync(id);
+        var client = await _context.Clients
+            .Include(c => c.IndividualClient)
+            .FirstOrDefaultAsync(c => c.Id == id);
 
         if (client == null)
         {
