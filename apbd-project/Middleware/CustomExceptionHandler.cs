@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace apbd_project.Middleware;
 
 public class CustomExceptionHandler
@@ -29,7 +31,8 @@ public class CustomExceptionHandler
 
             // Set the response status code and content
             context.Response.StatusCode = 500;
-            await context.Response.WriteAsync("An unexpected error occurred.");
+            context.Response.ContentType = "text/plain";
+            await context.Response.WriteAsync(ex.Message);
         }
     }
 }

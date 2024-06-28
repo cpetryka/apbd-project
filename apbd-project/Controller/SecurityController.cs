@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace apbd_project.Controller;
 
-[Route("api/[controller]")]
+[Route("api/security")]
 public class SecurityController : ControllerBase
 {
     private ISecurityService _securityService;
