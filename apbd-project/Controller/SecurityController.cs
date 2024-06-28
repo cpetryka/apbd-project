@@ -37,7 +37,11 @@ public class SecurityController : ControllerBase
             return BadRequest(authorizationResult.Errors);
         }
 
-        return Ok(new { AccessToken = authorizationResult.AccessToken, RefreshToken = authorizationResult.RefreshToken });
+        return Ok(new
+        {
+            AccessToken = authorizationResult.AccessToken,
+            RefreshToken = authorizationResult.RefreshToken
+        });
     }
 
     [HttpPost("refresh")]
@@ -50,6 +54,10 @@ public class SecurityController : ControllerBase
             return BadRequest(authorizationResult.Errors);
         }
 
-        return Ok(new { AccessToken = authorizationResult.AccessToken });
+        return Ok(new
+        {
+            AccessToken = authorizationResult.AccessToken,
+            RefreshToken = authorizationResult.RefreshToken
+        });
     }
 }

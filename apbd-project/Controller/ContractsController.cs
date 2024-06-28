@@ -65,6 +65,7 @@ public class ContractsController : ControllerBase
 
         // Add the contract
         var contractId = await _contractService.AddOneTimePurchaseContract(addOneTimePurchaseContractDto);
+
         return Created("api/contracts/" + contractId, new
         {
             Message = "Contract added successfully",

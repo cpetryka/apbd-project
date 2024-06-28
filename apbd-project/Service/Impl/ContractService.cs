@@ -21,22 +21,22 @@ public class ContractService : IContractService
         return await _context.Contracts.AnyAsync(c => c.Id == id);
     }
 
-    public Task<bool> IsContractDurationValid(DateTime startDate, DateTime endDate)
+    public async Task<bool> IsContractDurationValid(DateTime startDate, DateTime endDate)
     {
-        return Task.FromResult((endDate - startDate).Days >= 3 && (endDate - startDate).Days <= 30);
+        return (endDate - startDate).Days >= 3 && (endDate - startDate).Days <= 30;
     }
 
-    public Task<bool> DoesClientHaveAnyContracts(int id)
+    public async Task<bool> DoesClientHaveAnyContracts(int id)
     {
-        return Task.FromResult(_context.Contracts.Any(c => c.ClientId == id));
+        return await _context.Contracts.AnyAsync(c => c.ClientId == id);
     }
 
-    public Task<bool> DoesClientHaveContractForSoftwareProduct(int clientId, int softwareProductId)
+    public async Task<bool> DoesClientHaveContractForSoftwareProduct(int clientId, int softwareProductId)
     {
-        return Task.FromResult(_context.Contracts.Any(c => c.ClientId == clientId && c.SoftwareProductId == softwareProductId));
+        return await _context.Contracts.AnyAsync(c => c.ClientId == clientId && c.SoftwareProductId == softwareProductId);
     }
 
-    public Task<int> AddOneTimePurchaseContract(AddOneTimePurchaseContractDto addContractDto)
+    public async Task<int> AddOneTimePurchaseContract(AddOneTimePurchaseContractDto addContractDto)
     {
         // Calculate the discount
         var bestDiscount = _discountService.FindCurrentlyBestDiscount().Result;
@@ -59,8 +59,8 @@ public class ContractService : IContractService
             StartDate = addContractDto.StartDate
         };
 
-        _context.Contracts.Add(contract);
-        _context.SaveChanges();
+        await _context.Contracts.AddAsync(contract);
+        await _context.SaveChangesAsync();
 
         // Create the one-time purchase
         var oneTimePurchase = new OneTimePurchase
@@ -73,9 +73,9 @@ public class ContractService : IContractService
 
         contract.OneTimePurchase = oneTimePurchase;
 
-        _context.OneTimePurchases.Add(oneTimePurchase);
-        _context.SaveChanges();
+        await _context.OneTimePurchases.AddAsync(oneTimePurchase);
+        await _context.SaveChangesAsync();
 
-        return Task.FromResult(contract.Id);
+        return contract.Id;
     }
 }

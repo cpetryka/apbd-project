@@ -49,9 +49,9 @@ public class PaymentService : IPaymentsService
         return contract != null && paymentDate >= contract.StartDate && paymentDate <= contract.OneTimePurchase.EndDate;
     }
 
-    public Task<decimal> GetPaidAmount(int contractId)
+    public async Task<decimal> GetPaidAmount(int contractId)
     {
-        return _context
+        return await _context
             .Payments
             .Where(p => p.ContractId == contractId)
             .SumAsync(p => p.Amount);

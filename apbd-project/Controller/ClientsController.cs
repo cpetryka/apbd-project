@@ -21,10 +21,12 @@ public class ClientsController : ControllerBase
     public async Task<IActionResult> GetClientById(int id)
     {
         var client = await _clientService.GetClientById(id);
+
         if (client == null)
         {
             return NotFound();
         }
+
         return Ok(client);
     }
 
@@ -39,14 +41,21 @@ public class ClientsController : ControllerBase
     public async Task<IActionResult> AddIndividualClient(AddIndividualClientDto addIndividualClientDto)
     {
         await _clientService.AddIndividualClient(addIndividualClientDto);
-        return Ok();
+
+        return Created("api/clients/individual", new
+        {
+            Message = "Individual client added successfully."
+        });
     }
 
     [HttpPost("business")]
     public async Task<IActionResult> AddBusinessClient(AddBusinessClientDto addBusinessClientDto)
     {
         await _clientService.AddBusinessClient(addBusinessClientDto);
-        return Ok();
+        return Created("api/clients/business", new
+        {
+            Message = "Business client added successfully."
+        });
     }
 
     [HttpPatch("individual/{id}")]
@@ -54,7 +63,10 @@ public class ClientsController : ControllerBase
     public async Task<IActionResult> UpdateIndividualClient(int id, UpdateIndividualClientDto updateIndividualClientDto)
     {
         await _clientService.UpdateIndividualClient(id, updateIndividualClientDto);
-        return Ok();
+        return Ok(new
+        {
+            Message = "Individual client updated successfully."
+        });
     }
 
     [HttpPatch("business/{id}")]
@@ -62,7 +74,10 @@ public class ClientsController : ControllerBase
     public async Task<IActionResult> UpdateBusinessClient(int id, UpdateBusinessClientDto updateBusinessClientDto)
     {
         await _clientService.UpdateBusinessClient(id, updateBusinessClientDto);
-        return Ok();
+        return Ok(new
+        {
+            Message = "Business client updated successfully."
+        });
     }
 
     [HttpDelete("{id}")]
@@ -70,6 +85,9 @@ public class ClientsController : ControllerBase
     public async Task<IActionResult> DeleteClient(int id)
     {
         await _clientService.DeleteClient(id);
-        return Ok();
+        return Ok(new
+        {
+            Message = "Client deleted successfully."
+        });
     }
 }

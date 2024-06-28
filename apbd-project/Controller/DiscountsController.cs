@@ -41,6 +41,10 @@ public class DiscountsController : ControllerBase
     public async Task<IActionResult> AddDiscount(AddDiscountDto addDiscountDto)
     {
         await _discountService.AddDiscount(addDiscountDto);
-        return Created();
+
+        return Created("api/discounts", new
+        {
+            Message = "Discount added successfully."
+        });
     }
 }
