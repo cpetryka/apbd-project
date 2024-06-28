@@ -13,6 +13,7 @@ public class ApplicationContext : DbContext
     public DbSet<Contract> Contracts { get; set; } = null!;
     public DbSet<OneTimePurchase> OneTimePurchases { get; set; } = null!;
     public DbSet<Payment> Payments { get; set; } = null!;
+    public DbSet<User> Users { get; set; } = null!;
 
     public ApplicationContext(DbContextOptions options) : base(options) { }
 
@@ -125,6 +126,23 @@ public class ApplicationContext : DbContext
                 ContractId = 1,
                 Amount = 10_000,
                 PaymentDate = DateTime.Now
+            }
+        );
+
+        modelBuilder.Entity<User>().HasData(
+            new User
+            {
+                Id = 1,
+                Username = "admin",
+                HashedPassword = BCrypt.Net.BCrypt.HashPassword("admin"),
+                Role = "admin"
+            },
+            new User
+            {
+                Id = 2,
+                Username = "user",
+                HashedPassword = BCrypt.Net.BCrypt.HashPassword("user"),
+                Role = "user"
             }
         );
     }
