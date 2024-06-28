@@ -1,11 +1,13 @@
 using apbd_project.Model.Dto;
 using apbd_project.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace apbd_project.Controller;
 
-[Route("api/clients")]
 [ApiController]
+[Route("api/clients")]
+[Authorize(Policy = "admin")]
 public class ClientsController : ControllerBase
 {
     private readonly IClientService _clientService;

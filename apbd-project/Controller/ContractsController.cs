@@ -1,11 +1,13 @@
 using apbd_project.Model.Dto;
 using apbd_project.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace apbd_project.Controller;
 
-[Route("api/contracts")]
 [ApiController]
+[Route("api/contracts")]
+[Authorize(Policy = "all")]
 public class ContractsController : ControllerBase
 {
     private readonly IContractService _contractService;

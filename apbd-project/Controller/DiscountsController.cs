@@ -1,11 +1,13 @@
 using apbd_project.Model.Dto;
 using apbd_project.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace apbd_project.Controller;
 
-[Route("api/discounts")]
 [ApiController]
+[Route("api/discounts")]
+[Authorize(Policy = "all")]
 public class DiscountsController : ControllerBase
 {
     private readonly IDiscountService _discountService;

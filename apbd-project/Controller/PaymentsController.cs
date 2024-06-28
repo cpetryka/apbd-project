@@ -1,11 +1,13 @@
 using apbd_project.Model.Dto;
 using apbd_project.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace apbd_project.Controller;
 
-[Route("api/payments")]
 [ApiController]
+[Route("api/payments")]
+[Authorize(Policy = "all")]
 public class PaymentsController : ControllerBase
 {
     private readonly IPaymentsService _paymentsService;
